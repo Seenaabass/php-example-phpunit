@@ -8,17 +8,21 @@ pipeline {
             checkout scm
         }
     }
-    stage('Get PhpUnit'){
+    stage('Get Composer'){
         steps{
             sh """
-            wget -O phpunit https://phar.phpunit.de/phpunit-8.phar
-            chmod +x phpunit
+            php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/tmp --filename=composer  
             """
         }
     }
-     stage('Run PhpUnit'){
+    stage('Install Requirements With Composer'){
         steps{
-            sh "./phpunit tests/EmailTest"
+            sh "php /tmp/composer install"
+        }
+    }
+    stage('Phpunit'){
+        steps{
+            sh 'vendor/bin/phpunit tests'
         }
     }
   }
