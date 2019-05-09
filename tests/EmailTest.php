@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use scr\Email;
 
 final class EmailTest extends TestCase
 {
