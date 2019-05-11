@@ -27,13 +27,15 @@ pipeline {
         }
     }
     //Will run phpunit on all test files in tests folder
+    //I have added --log-junit argument so it will generate test results into a results.xml file
+    //junit used so at test results step we would use a junit jenkins plugin to publish the report
     stage('Phpunit'){
         steps{
             sh 'vendor/bin/phpunit --log-junit results.xml tests'
         }
     }
+    //Publish results
     stage('Results') {
-     //Publish results
        steps{
         junit '**/results.xml'
        }
