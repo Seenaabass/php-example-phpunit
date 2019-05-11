@@ -29,8 +29,14 @@ pipeline {
     //Will run phpunit on all test files in tests folder
     stage('Phpunit'){
         steps{
-            sh 'vendor/bin/phpunit tests'
+            sh 'vendor/bin/phpunit --log-junit results.xml tests'
         }
     }
+    stage('Results') {
+     //Publish results
+       steps{
+        junit '**/results.xml'
+       }
+     }
   }
 }
